@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.ui
+package com.makelick.nitrixtest.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,41 +7,28 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.makelick.nitrixtest.ui.theme.NitrixTestTheme
+import androidx.navigation.compose.rememberNavController
+import com.makelick.nitrixtest.view.theme.NitrixTestTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             NitrixTestTheme {
+
+                val navController = rememberNavController()
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    VideoNavHost(
+                        modifier = Modifier.padding(innerPadding),
+                        navHostController = navController
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NitrixTestTheme {
-        Greeting("Android")
     }
 }
