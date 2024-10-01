@@ -4,20 +4,31 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.makelick.nitrixtest.data.local.model.VideoCategory
+import com.makelick.nitrixtest.data.local.model.VideoItem
 
 @Dao
 interface VideoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertVideos(videos: List<VideoItemEntity>)
+    suspend fun insertCategories(categories: List<VideoCategory>)
+
+    @Query("SELECT * FROM video_category")
+    suspend fun getCategories(): List<VideoCategory>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertVideos(videos: List<VideoItem>)
 
     @Query("SELECT * FROM video_item")
-    fun getVideos(): List<VideoItemEntity>
-
-    @Query("SELECT * FROM video_item WHERE id = :id")
-    fun getVideoById(id: Int): VideoItemEntity
+    suspend fun getAllVideos(): List<VideoItem>
 
     @Query("DELETE FROM video_item")
-    fun clearVideos()
+    suspend fun clearVideos()
+
+    @Query("DELETE FROM video_category")
+    suspend fun clearCategories()
+
+    @Query("SELECT * FROM video_item WHERE categoryId = :categoryId")
+    suspend fun getVideosByCategory(categoryId: Int): List<VideoItem>
 
 }

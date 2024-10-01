@@ -1,12 +1,21 @@
 package com.makelick.nitrixtest.data.mapper
 
-import com.makelick.nitrixtest.data.local.VideoItemEntity
-import com.makelick.nitrixtest.domain.model.VideoItem
+import com.makelick.nitrixtest.data.local.model.VideoCategory
+import com.makelick.nitrixtest.data.local.model.VideoItem
+import com.makelick.nitrixtest.data.remote.model.VideoCategoryDto
+import com.makelick.nitrixtest.data.remote.model.VideoItemDto
 
-fun VideoItemEntity.toVideoItem() = VideoItem(
+fun VideoItemDto.toEntity(categoryId: Int) = VideoItem(
+    id = 0,
+    categoryId = categoryId,
     description = description,
     sources = sources,
     subtitle = subtitle,
     thumb = thumb,
     title = title
+)
+
+fun VideoCategoryDto.toEntity() = VideoCategory(
+    id = 0,
+    name = name
 )

@@ -1,6 +1,6 @@
-package com.makelick.nitrixtest.domain.model
+package com.makelick.nitrixtest.data.remote.model
 
-data class VideoItem(
+data class VideoItemDto(
     val description: String,
     val sources: List<String>,
     val subtitle: String,
