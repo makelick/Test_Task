@@ -7,8 +7,9 @@ import com.makelick.nitrixtest.data.mapper.toEntity
 import com.makelick.nitrixtest.data.remote.GithubApi
 import com.makelick.nitrixtest.data.remote.JsonParser
 import com.makelick.nitrixtest.domain.repository.VideoRepository
+import javax.inject.Inject
 
-class GithubVideoRepository(
+class GithubVideoRepository @Inject constructor(
     private val remote: GithubApi,
     private val local: VideoDatabase,
     private val jsonParser: JsonParser
@@ -21,6 +22,7 @@ class GithubVideoRepository(
             try {
                 loadFromRemoteToLocal()
             } catch (e: Exception) {
+                e.printStackTrace()
                 return Result.failure(e)
             }
 
@@ -37,6 +39,7 @@ class GithubVideoRepository(
             try {
                 loadFromRemoteToLocal()
             } catch (e: Exception) {
+                e.printStackTrace()
                 return Result.failure(e)
             }
 
@@ -46,10 +49,11 @@ class GithubVideoRepository(
         return Result.success(localCategories)
     }
 
-    override suspend fun getVideosByCategory(category: VideoCategory): Result<List<VideoItem>> {
+    override suspend fun getVideosByCategories(categories: List<VideoCategory>): Result<List<VideoItem>> {
         return try {
-            Result.success(local.videoDao.getVideosByCategory(category.id))
+            Result.success(local.videoDao.getVideosByCategories(categories.map { it.id }))
         } catch (e: Exception) {
+            e.printStackTrace()
             Result.failure(e)
         }
     }
@@ -63,10 +67,9 @@ class GithubVideoRepository(
             local.videoDao.clearCategories()
 
             dto.forEach { category ->
-                val categoryEntity = category.toEntity()
-                val videoEntities = category.videos.map { it.toEntity(categoryEntity.id) }
+                val categoryId = local.videoDao.insertCategory(category.toEntity())
+                val videoEntities = category.videos.map { it.toEntity(categoryId) }
 
-                local.videoDao.insertCategories(listOf(categoryEntity))
                 local.videoDao.insertVideos(videoEntities)
             }
         }

@@ -11,7 +11,7 @@ import com.makelick.nitrixtest.data.local.model.VideoItem
 interface VideoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCategories(categories: List<VideoCategory>)
+    suspend fun insertCategory(category: VideoCategory) : Long
 
     @Query("SELECT * FROM video_category")
     suspend fun getCategories(): List<VideoCategory>
@@ -28,7 +28,7 @@ interface VideoDao {
     @Query("DELETE FROM video_category")
     suspend fun clearCategories()
 
-    @Query("SELECT * FROM video_item WHERE categoryId = :categoryId")
-    suspend fun getVideosByCategory(categoryId: Int): List<VideoItem>
+    @Query("SELECT * FROM video_item WHERE categoryId IN (:categoriesIds)")
+    suspend fun getVideosByCategories(categoriesIds: List<Long>): List<VideoItem>
 
 }

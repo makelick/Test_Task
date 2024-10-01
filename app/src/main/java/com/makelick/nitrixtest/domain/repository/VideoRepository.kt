@@ -9,5 +9,5 @@ interface VideoRepository {
 
     suspend fun getCategories(): Result<List<VideoCategory>>
 
-    suspend fun getVideosByCategory(category: VideoCategory): Result<List<VideoItem>>
+    suspend fun getVideosByCategories(categories: List<VideoCategory>): Result<List<VideoItem>>
 }

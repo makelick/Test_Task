@@ -11,6 +11,7 @@ interface GithubApi {
 
     companion object {
         const val BASE_URL = "https://api.github.com/"
+        const val BASE_IMAGE_URL = "https://storage.googleapis.com/gtv-videos-bucket/sample/"
         const val GIST_ID = "3b19447b304616f18657"
         const val FILE_NAME = "gistfile1.txt"
     }

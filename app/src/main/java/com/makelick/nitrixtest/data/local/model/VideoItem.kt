@@ -17,8 +17,8 @@ import androidx.room.PrimaryKey
     ]
     )
 data class VideoItem(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    val categoryId: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long,
+    val categoryId: Long,
     val description: String,
     val sources: List<String>,
     val subtitle: String,
