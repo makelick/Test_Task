@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Nitrix Test"
 include(":app")
- 
+include(":tv")
