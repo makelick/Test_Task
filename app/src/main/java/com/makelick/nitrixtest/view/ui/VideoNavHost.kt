@@ -1,13 +1,12 @@
 package com.makelick.nitrixtest.view.ui
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.makelick.nitrixtest.view.VideoListIntent
 import com.makelick.nitrixtest.view.VideoViewModel
 
@@ -20,26 +19,35 @@ fun VideoNavHost(
     NavHost(
         modifier = modifier,
         navController = navHostController,
-        startDestination = "list"
+        startDestination = NavDestinations.List.route
     ) {
-        composable("list") {
+        composable(NavDestinations.List.route) {
             VideoListScreen(
                 state = viewModel.state,
                 onEvent = {
                     when (it) {
-                        is VideoListIntent.SelectVideo -> navHostController.navigate("player")
+                        is VideoListIntent.SelectVideo ->
+                            navHostController.navigate("player/${it.video.id}")
                         else -> viewModel.handleIntent(it)
                     }
                 }
             )
         }
-        composable("player") {
-            VideoPlayerScreen(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState()),
-                video = viewModel.state.videos[0]
-            )
+
+        composable(
+            route = "${NavDestinations.Player.route}/{videoId}",
+            arguments = listOf(navArgument("videoId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val videoId = backStackEntry.arguments?.getLong("videoId")
+            val video = viewModel.state.videos.find { it.id == videoId }
+            video?.let {
+                VideoPlayerScreen(video = it)
+            }
         }
     }
+}
+
+enum class NavDestinations(val route: String) {
+    List("list"),
+    Player("player")
 }

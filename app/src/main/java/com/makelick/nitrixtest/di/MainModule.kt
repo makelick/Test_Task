@@ -14,12 +14,14 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class MainModule {
 
     @Provides
+    @Singleton
     fun provideGithubApi(): GithubApi {
         return Retrofit.Builder()
             .baseUrl(GithubApi.BASE_URL)
@@ -29,6 +31,7 @@ class MainModule {
     }
 
     @Provides
+    @Singleton
     fun provideVideoDatabase(@ApplicationContext context: Context): VideoDatabase {
         return Room.databaseBuilder(
             context,
@@ -38,6 +41,7 @@ class MainModule {
     }
 
     @Provides
+    @Singleton
     fun provideVideoRepository(
         githubApi: GithubApi,
         videoDatabase: VideoDatabase,

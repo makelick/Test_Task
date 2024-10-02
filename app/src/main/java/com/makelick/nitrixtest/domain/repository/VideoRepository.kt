@@ -5,9 +5,9 @@ import com.makelick.nitrixtest.data.local.model.VideoItem
 
 interface VideoRepository {
 
-    suspend fun getAllVideos(): Result<List<VideoItem>>
+    suspend fun fetchRemoteData(): Result<Unit>
 
     suspend fun getCategories(): Result<List<VideoCategory>>
 
-    suspend fun getVideosByCategories(categories: List<VideoCategory>): Result<List<VideoItem>>
+    suspend fun getVideos(selectedCategories: List<VideoCategory>): Result<List<VideoItem>>
 }
