@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
             onDelete = CASCADE
         )
     ]
-    )
+)
 data class VideoItem(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val categoryId: Long,

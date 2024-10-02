@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import com.makelick.nitrixtest.view.list.VideoViewModel
 import com.makelick.nitrixtest.view.theme.NitrixTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,13 +21,11 @@ class MainActivity : ComponentActivity() {
             NitrixTestTheme {
 
                 val navController = rememberNavController()
-                val viewModel = hiltViewModel<VideoViewModel>()
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     VideoNavHost(
                         modifier = Modifier.padding(innerPadding),
-                        navHostController = navController,
-                        viewModel = viewModel
+                        navHostController = navController
                     )
                 }
             }

@@ -7,6 +7,6 @@ data class VideoListState(
     val categories: List<VideoCategory> = emptyList(),
     val videos: List<VideoItem> = emptyList(),
     val selectedCategories: List<VideoCategory> = emptyList(),
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val isError: Boolean = false
 )

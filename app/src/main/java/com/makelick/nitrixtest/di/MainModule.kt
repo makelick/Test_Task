@@ -6,7 +6,9 @@ import com.makelick.nitrixtest.data.local.VideoDatabase
 import com.makelick.nitrixtest.data.remote.GithubApi
 import com.makelick.nitrixtest.data.remote.JsonParser
 import com.makelick.nitrixtest.data.repository.GithubVideoRepository
-import com.makelick.nitrixtest.domain.VideoRepository
+import com.makelick.nitrixtest.data.repository.LocalMediaItemRepository
+import com.makelick.nitrixtest.domain.repositories.MediaItemRepository
+import com.makelick.nitrixtest.domain.repositories.VideoRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,6 +50,14 @@ class MainModule {
         jsonParser: JsonParser
     ): VideoRepository {
         return GithubVideoRepository(githubApi, videoDatabase, jsonParser)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMediaItemRepository(
+        videoDatabase: VideoDatabase
+    ): MediaItemRepository {
+        return LocalMediaItemRepository(videoDatabase)
     }
 
 }
