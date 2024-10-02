@@ -9,6 +9,7 @@ import com.makelick.nitrixtest.data.local.model.VideoCategory
 import com.makelick.nitrixtest.domain.repository.VideoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,9 +53,9 @@ class VideoViewModel @Inject constructor(
                     state = state.copy(isLoading = false)
                 }
                 .onFailure {
+                    delay(100)
                     state = state.copy(isError = true, isLoading = false)
                 }
-
 
             loadCategories()
             loadVideos()

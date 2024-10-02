@@ -3,8 +3,6 @@ package com.makelick.nitrixtest.view.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,11 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,30 +29,48 @@ import com.makelick.nitrixtest.data.local.model.VideoItem
 import com.makelick.nitrixtest.view.VideoListIntent
 import com.makelick.nitrixtest.view.VideoListState
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VideoListScreen(
     modifier: Modifier = Modifier,
     state: VideoListState,
     onEvent: (VideoListIntent) -> Unit
 ) {
-    when {
-        state.isLoading -> Box(
-            contentAlignment = Alignment.Center,
-            modifier = modifier.fillMaxSize()
-        ) {
-            CircularProgressIndicator()
-        }
+    val pullToRefreshState = rememberPullToRefreshState()
 
-        else -> VideosList(
-            state = state,
-            onEvent = onEvent
-        )
+    PullToRefreshBox(
+        modifier = modifier.fillMaxSize(),
+        state = pullToRefreshState,
+        isRefreshing = state.isLoading,
+        onRefresh = {
+            onEvent(VideoListIntent.LoadData)
+        }
+    ) {
+        LazyColumn(
+            modifier = modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            state = rememberLazyListState()
+        ) {
+            item {
+                CategoryChips(
+                    categories = state.categories,
+                    selected = state.selectedCategories,
+                    onEvent = onEvent
+                )
+            }
+
+            items(state.videos, key = { it.id }) { video ->
+                VideoCard(video = video, onClick = {
+                    onEvent(VideoListIntent.SelectVideo(video))
+                })
+            }
+        }
     }
 
     AnimatedVisibility(
         visible = state.isError,
-        enter = fadeIn() + slideInVertically(),
-        exit = fadeOut() + slideOutVertically()
+        enter = fadeIn(),
+        exit = fadeOut()
     ) {
         Box(
             contentAlignment = Alignment.BottomCenter,
@@ -86,34 +104,6 @@ fun ErrorSnackbar(
     }
 }
 
-@Composable
-fun VideosList(
-    state: VideoListState,
-    modifier: Modifier = Modifier,
-    onEvent: (VideoListIntent) -> Unit = {}
-) {
-    val lazyColumnState = rememberLazyListState()
-    LazyColumn(
-        modifier = modifier.padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        state = lazyColumnState
-    ) {
-        item {
-            CategoryChips(
-                categories = state.categories,
-                selected = state.selectedCategories,
-                onEvent = onEvent
-            )
-        }
-
-        items(state.videos, key = { it.id }) { video ->
-            VideoCard(video = video, onClick = {
-                onEvent(VideoListIntent.SelectVideo(video))
-            })
-        }
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun ErrorSnackbar_Preview() {
@@ -123,7 +113,7 @@ private fun ErrorSnackbar_Preview() {
 @Preview(showBackground = true)
 @Composable
 private fun VideosList_Preview() {
-    VideosList(
+    VideoListScreen(
         state = VideoListState(
             categories = listOf(VideoCategory(0, "Category 1"), VideoCategory(1, "Category 2")),
             selectedCategories = emptyList(),
@@ -145,6 +135,7 @@ private fun VideosList_Preview() {
             ),
             isLoading = false,
             isError = false
-        )
+        ),
+        onEvent = {}
     )
 }
