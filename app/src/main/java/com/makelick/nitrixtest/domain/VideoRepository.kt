@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.domain.repository
+package com.makelick.nitrixtest.domain
 
 import com.makelick.nitrixtest.data.local.model.VideoCategory
 import com.makelick.nitrixtest.data.local.model.VideoItem

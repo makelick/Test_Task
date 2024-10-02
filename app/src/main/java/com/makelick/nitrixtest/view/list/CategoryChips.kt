@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.view.ui
+package com.makelick.nitrixtest.view.list
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -14,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.makelick.nitrixtest.R
 import com.makelick.nitrixtest.data.local.model.VideoCategory
-import com.makelick.nitrixtest.view.VideoListIntent
 
 @Composable
 fun CategoryChips(

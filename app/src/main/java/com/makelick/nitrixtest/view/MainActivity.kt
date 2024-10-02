@@ -10,8 +10,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import com.makelick.nitrixtest.view.ui.VideoNavHost
-import com.makelick.nitrixtest.view.ui.theme.NitrixTestTheme
+import com.makelick.nitrixtest.view.list.VideoViewModel
+import com.makelick.nitrixtest.view.theme.NitrixTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

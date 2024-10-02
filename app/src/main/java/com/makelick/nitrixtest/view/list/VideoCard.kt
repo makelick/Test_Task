@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.view.ui
+package com.makelick.nitrixtest.view.list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

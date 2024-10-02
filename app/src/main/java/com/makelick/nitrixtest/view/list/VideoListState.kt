@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.view
+package com.makelick.nitrixtest.view.list
 
 import com.makelick.nitrixtest.data.local.model.VideoCategory
 import com.makelick.nitrixtest.data.local.model.VideoItem

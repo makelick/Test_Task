@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.view
+package com.makelick.nitrixtest.view.list
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.makelick.nitrixtest.data.local.model.VideoCategory
-import com.makelick.nitrixtest.domain.repository.VideoRepository
+import com.makelick.nitrixtest.domain.VideoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

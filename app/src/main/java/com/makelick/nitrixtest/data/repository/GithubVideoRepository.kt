@@ -7,7 +7,7 @@ import com.makelick.nitrixtest.data.local.model.VideoItem
 import com.makelick.nitrixtest.data.mapper.toEntity
 import com.makelick.nitrixtest.data.remote.GithubApi
 import com.makelick.nitrixtest.data.remote.JsonParser
-import com.makelick.nitrixtest.domain.repository.VideoRepository
+import com.makelick.nitrixtest.domain.VideoRepository
 import java.io.IOException
 import javax.inject.Inject
 

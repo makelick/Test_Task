@@ -6,7 +6,7 @@ import com.makelick.nitrixtest.data.local.VideoDatabase
 import com.makelick.nitrixtest.data.remote.GithubApi
 import com.makelick.nitrixtest.data.remote.JsonParser
 import com.makelick.nitrixtest.data.repository.GithubVideoRepository
-import com.makelick.nitrixtest.domain.repository.VideoRepository
+import com.makelick.nitrixtest.domain.VideoRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

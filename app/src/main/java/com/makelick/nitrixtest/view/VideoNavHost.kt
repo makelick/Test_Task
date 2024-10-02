@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.view.ui
+package com.makelick.nitrixtest.view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -7,8 +7,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.makelick.nitrixtest.view.VideoListIntent
-import com.makelick.nitrixtest.view.VideoViewModel
+import com.makelick.nitrixtest.view.list.VideoListIntent
+import com.makelick.nitrixtest.view.list.VideoListScreen
+import com.makelick.nitrixtest.view.list.VideoViewModel
+import com.makelick.nitrixtest.view.player.VideoPlayerScreen
 
 @Composable
 fun VideoNavHost(

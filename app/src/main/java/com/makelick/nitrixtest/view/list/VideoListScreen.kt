@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.view.ui
+package com.makelick.nitrixtest.view.list
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -26,8 +26,6 @@ import androidx.compose.ui.unit.dp
 import com.makelick.nitrixtest.R
 import com.makelick.nitrixtest.data.local.model.VideoCategory
 import com.makelick.nitrixtest.data.local.model.VideoItem
-import com.makelick.nitrixtest.view.VideoListIntent
-import com.makelick.nitrixtest.view.VideoListState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

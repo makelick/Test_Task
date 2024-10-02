@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.view.ui.theme
+package com.makelick.nitrixtest.view.theme
 
 import androidx.compose.ui.graphics.Color
 

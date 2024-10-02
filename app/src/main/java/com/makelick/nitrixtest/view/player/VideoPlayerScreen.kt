@@ -1,4 +1,4 @@
-package com.makelick.nitrixtest.view.ui
+package com.makelick.nitrixtest.view.player
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
